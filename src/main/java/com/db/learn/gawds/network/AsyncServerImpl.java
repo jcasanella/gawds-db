@@ -1,5 +1,6 @@
 package com.db.learn.gawds.network;
 
+import com.google.inject.name.Named;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelOption;
@@ -15,16 +16,22 @@ public class AsyncServerImpl implements Server, Closeable {
 
     private EventLoopGroup bossGroup;
     private EventLoopGroup workerGroup;
+    private int port;
 
     private static final Logger LOG = LogManager.getLogger();
 
-    public AsyncServerImpl() {
+//    public AsyncServerImpl() {
+//
+//    }
+
+    public AsyncServerImpl(@Named("port") Integer port) {
         this.bossGroup = new NioEventLoopGroup();
         this.workerGroup = new NioEventLoopGroup();
+        this.port = port;
     }
 
     @Override
-    public void start(int port) throws InterruptedException {
+    public void start() throws InterruptedException {
         var serverBootstrap = new ServerBootstrap();
         serverBootstrap.group(bossGroup, workerGroup)
                 .channel(NioServerSocketChannel.class)

@@ -15,9 +15,9 @@ public class MainApp {
         try {
             Injector injector = Guice.createInjector(new BasicModule());
             Driver driver = injector.getInstance(Driver.class);
-            driver.serverStart(8085);
+            driver.serverStart();
         } catch (Exception ex) {
-            LOG.warn(ex.getMessage(), ex);
+            LOG.error(ex.getMessage(), ex);
         }
     }
 }

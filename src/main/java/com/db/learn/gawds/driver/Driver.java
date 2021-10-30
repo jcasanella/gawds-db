@@ -12,7 +12,7 @@ public class Driver {
                 .addShutdownHook(new Thread(() -> server.close()));
     }
 
-    public void serverStart(int port) throws InterruptedException {
-        this.server.start(port);
+    public void serverStart() throws InterruptedException {
+        this.server.start();
     }
 }
