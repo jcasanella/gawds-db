@@ -1,7 +1,7 @@
-package com.db.learn.gawds.injection;
+package com.gawds.db.injection;
 
-import com.db.learn.gawds.network.AsyncServerImpl;
-import com.db.learn.gawds.network.Server;
+import com.gawds.db.network.AsyncServerImpl;
+import com.gawds.db.network.Server;
 import com.google.inject.AbstractModule;
 import com.google.inject.name.Names;
 import org.apache.logging.log4j.LogManager;

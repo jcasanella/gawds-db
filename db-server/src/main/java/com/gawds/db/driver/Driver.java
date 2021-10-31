@@ -1,6 +1,6 @@
-package com.db.learn.gawds.driver;
+package com.gawds.db.driver;
 
-import com.db.learn.gawds.network.Server;
+import com.gawds.db.network.Server;
 import com.google.inject.Inject;
 
 public class Driver {

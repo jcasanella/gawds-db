@@ -1,4 +1,4 @@
-package com.db.learn.gawds.network;
+package com.gawds.db.network;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;

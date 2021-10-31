@@ -1,7 +1,7 @@
-package com.db.learn.gawds;
+package com.gawds.db;
 
-import com.db.learn.gawds.driver.Driver;
-import com.db.learn.gawds.injection.BasicModule;
+import com.gawds.db.driver.Driver;
+import com.gawds.db.injection.BasicModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import org.apache.logging.log4j.LogManager;

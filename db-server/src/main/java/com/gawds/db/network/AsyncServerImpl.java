@@ -1,4 +1,4 @@
-package com.db.learn.gawds.network;
+package com.gawds.db.network;
 
 import com.google.inject.name.Named;
 import io.netty.bootstrap.ServerBootstrap;
