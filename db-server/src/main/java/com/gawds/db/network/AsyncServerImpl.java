@@ -20,10 +20,6 @@ public class AsyncServerImpl implements Server, Closeable {
 
     private static final Logger LOG = LogManager.getLogger();
 
-//    public AsyncServerImpl() {
-//
-//    }
-
     public AsyncServerImpl(@Named("port") Integer port) {
         this.bossGroup = new NioEventLoopGroup();
         this.workerGroup = new NioEventLoopGroup();

@@ -9,7 +9,7 @@ repositories {
 }
 
 configure<JavaApplication> {
-    mainClass.set("com.gawds.db.MainApp")
+    mainClass.set("com.gawds.client.MainApp")
 }
 
 tasks.named<Test>("test") {
@@ -22,8 +22,6 @@ dependencies {
     implementation("org.apache.logging.log4j", "log4j-core", log4jVersion)
 
     implementation("io.netty", "netty-all", "4.1.69.Final")
-
-    implementation("com.google.inject", "guice", "5.0.1")
 
     val junitVersion = "5.8.1"
     testImplementation("org.junit.jupiter", "junit-jupiter-api", junitVersion)
