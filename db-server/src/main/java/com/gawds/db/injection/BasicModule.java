@@ -1,6 +1,6 @@
 package com.gawds.db.injection;
 
-import com.gawds.db.network.AsyncServerImpl;
+import com.gawds.db.network.ServerImpl;
 import com.gawds.db.network.Server;
 import com.google.inject.AbstractModule;
 import com.google.inject.name.Names;
@@ -16,7 +16,7 @@ public class BasicModule extends AbstractModule {
     protected void configure() {
         try {
             bind(Server.class)
-                    .toConstructor(AsyncServerImpl.class.getConstructor(Integer.class));
+                    .toConstructor(ServerImpl.class.getConstructor(Integer.class));
         } catch (NoSuchMethodException e) {
             LOG.error("No exists the constructor with port argument", e);
         }

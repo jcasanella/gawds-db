@@ -3,47 +3,40 @@ package com.gawds.db.network;
 import com.google.inject.name.Named;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import java.net.InetSocketAddress;
 
-import java.io.Closeable;
+public class ServerImpl implements Server {
 
-public class AsyncServerImpl implements Server, Closeable {
-
-    private EventLoopGroup bossGroup;
-    private EventLoopGroup workerGroup;
     private int port;
+    private EventLoopGroup group;
 
     private static final Logger LOG = LogManager.getLogger();
 
-    public AsyncServerImpl(@Named("port") Integer port) {
-        this.bossGroup = new NioEventLoopGroup();
-        this.workerGroup = new NioEventLoopGroup();
+    public ServerImpl(@Named("port") Integer port) {
         this.port = port;
+        this.group = new NioEventLoopGroup();
     }
 
     @Override
     public void start() throws InterruptedException {
         var serverBootstrap = new ServerBootstrap();
-        serverBootstrap.group(bossGroup, workerGroup)
+        serverBootstrap.group(this.group)
                 .channel(NioServerSocketChannel.class)
-                .childHandler(new SimpleTcpChannelInitializer())
-                .childOption(ChannelOption.SO_KEEPALIVE, true);
+                .localAddress(new InetSocketAddress(this.port))
+                .childHandler(new EchoServerInitializer());
 
         try {
-            ChannelFuture channelFuture = serverBootstrap.bind(port).sync();
+            ChannelFuture channelFuture = serverBootstrap.bind().sync();
             if (channelFuture.isSuccess()) {
                 LOG.info("Connection success!!!");
             }
 
             channelFuture.channel().closeFuture().sync();
-        } catch (InterruptedException ex) {
-            LOG.warn("Error starting the server!!!");
-            throw ex;
         } finally {
             close();
         }
@@ -52,7 +45,6 @@ public class AsyncServerImpl implements Server, Closeable {
     @Override
     public void close() {
         LOG.info("Closing Server!!!");
-        workerGroup.shutdownGracefully();
-        bossGroup.shutdownGracefully();
+        group.shutdownGracefully();
     }
 }
