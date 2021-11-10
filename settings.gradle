@@ -1,4 +1,0 @@
-rootProject.name = 'gawds-db'
-include("db-server")
-include("db-client")
-
