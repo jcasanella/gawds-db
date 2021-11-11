@@ -1,4 +1,4 @@
-package com.gawds.db.socket;
+package com.gawds.db.handler;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;

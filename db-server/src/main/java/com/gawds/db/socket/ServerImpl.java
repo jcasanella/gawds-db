@@ -1,5 +1,6 @@
 package com.gawds.db.socket;
 
+import com.gawds.db.handler.EchoServerInitializer;
 import com.google.inject.name.Named;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -8,6 +9,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import java.net.InetSocketAddress;
 
 public class ServerImpl implements Server {
@@ -30,16 +32,12 @@ public class ServerImpl implements Server {
                 .localAddress(new InetSocketAddress(this.port))
                 .childHandler(new EchoServerInitializer());
 
-        try {
-            ChannelFuture channelFuture = serverBootstrap.bind().sync();
-            if (channelFuture.isSuccess()) {
-                LOG.info("Connection success!!!");
-            }
-
-            channelFuture.channel().closeFuture().sync();
-        } finally {
-            close();
+        ChannelFuture channelFuture = serverBootstrap.bind().sync();
+        if (channelFuture.isSuccess()) {
+            LOG.info("Connection success!!!");
         }
+
+        channelFuture.channel().closeFuture().sync();
     }
 
     @Override

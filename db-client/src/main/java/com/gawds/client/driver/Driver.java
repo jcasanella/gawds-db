@@ -6,10 +6,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class Driver {
-    @Inject
     private Client client;
 
     private static final Logger LOG = LogManager.getLogger();
+
+    @Inject
+    public Driver(final Client client) {
+        this.client = client;
+    }
 
     public void start(String host, int port) {
         try {
