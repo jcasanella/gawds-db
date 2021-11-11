@@ -1,7 +1,7 @@
-package com.gawds.db.injection;
+package com.gawds.db.guice;
 
-import com.gawds.db.network.ServerImpl;
-import com.gawds.db.network.Server;
+import com.gawds.db.socket.ServerImpl;
+import com.gawds.db.socket.Server;
 import com.google.inject.AbstractModule;
 import com.google.inject.name.Names;
 import org.apache.logging.log4j.LogManager;

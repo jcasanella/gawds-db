@@ -1,6 +1,6 @@
 package com.gawds.db.driver;
 
-import com.gawds.db.network.Server;
+import com.gawds.db.socket.Server;
 import com.google.inject.Inject;
 
 public class Driver {
