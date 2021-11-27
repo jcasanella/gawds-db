@@ -21,8 +21,8 @@ public class EchoClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
     }
 
     @Override
-    public void channelRead0(ChannelHandlerContext ctx, ByteBuf msg) throws Exception {
-        LOG.info("Client received {}", msg.toString(CharsetUtil.UTF_8));
+    public void channelRead0(ChannelHandlerContext ctx, ByteBuf msg) {
+        LOG.info("Client received: {}", msg.toString(CharsetUtil.UTF_8));
     }
 
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {

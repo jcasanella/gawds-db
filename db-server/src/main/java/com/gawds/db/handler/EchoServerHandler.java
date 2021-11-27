@@ -7,6 +7,7 @@ import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.CharsetUtil;
+import io.netty.util.ReferenceCountUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -19,10 +20,14 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         ByteBuf buf = (ByteBuf) msg;
-        LOG.info("Server received {}", buf.toString(CharsetUtil.UTF_8));
+        try {
+            LOG.info("Server received {}", buf.toString(CharsetUtil.UTF_8));
 
-        // Writes the received msg
-        ctx.write(msg);
+            // Writes the received msg
+            ctx.write(Unpooled.copiedBuffer("Ok", CharsetUtil.UTF_8));
+        } finally {
+            ReferenceCountUtil.release(msg);
+        }
     }
 
     @Override
