@@ -1,5 +1,4 @@
 plugins {
-    `java-library`
     `maven-publish`
     application
 }
@@ -34,4 +33,6 @@ dependencies {
     val junitVersion = "5.8.1"
     testImplementation("org.junit.jupiter", "junit-jupiter-api", junitVersion)
     testRuntimeOnly("org.junit.jupiter", "junit-jupiter-engine", junitVersion)
+
+    implementation(project(":db-common"))
 }
