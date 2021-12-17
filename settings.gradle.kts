@@ -1,3 +1,3 @@
 rootProject.name = "gawds-db"
-include("db-server", "db-client")
+include("db-server", "db-client", "db-common")
 
