@@ -22,7 +22,7 @@ tasks.withType<JavaExec> {
 }
 
 dependencies {
-    val log4jVersion = "2.16.0"
+    val log4jVersion = "2.17.1"
     implementation("org.apache.logging.log4j", "log4j-api", log4jVersion)
     implementation("org.apache.logging.log4j", "log4j-core", log4jVersion)
 
