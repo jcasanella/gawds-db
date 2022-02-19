@@ -4,13 +4,13 @@ import com.gawds.db.socket.ServerImpl;
 import com.gawds.db.socket.Server;
 import com.google.inject.AbstractModule;
 import com.google.inject.name.Names;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class BasicModule extends AbstractModule {
 
-    private static final Logger LOG = LogManager.getLogger();
+    private static final Logger LOG = LoggerFactory.getLogger(BasicModule.class);
 
     @Override
     protected void configure() {

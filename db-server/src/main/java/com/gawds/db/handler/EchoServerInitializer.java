@@ -5,7 +5,7 @@ import io.netty.channel.socket.SocketChannel;
 
 public class EchoServerInitializer extends ChannelInitializer<SocketChannel> {
     @Override
-    protected void initChannel(SocketChannel ch) throws Exception {
-        ch.pipeline().addLast(new EchoServerHandler());
+    protected void initChannel(SocketChannel ch) {
+        ch.pipeline().addLast("EchoServer", new EchoServerHandler());
     }
 }

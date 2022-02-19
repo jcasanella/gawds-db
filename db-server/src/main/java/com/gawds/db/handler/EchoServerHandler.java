@@ -9,7 +9,6 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.CharsetUtil;
 import io.netty.util.ReferenceCountUtil;
-import io.vavr.control.Try;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,15 +29,14 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         ByteBuf buf = (ByteBuf) msg;
-        Try.of(() -> {
+        try {
             LOG.info("Server received {}", buf.toString(CharsetUtil.UTF_8));
 
             // Writes the received msg
             ctx.write(Unpooled.copiedBuffer("Ok", CharsetUtil.UTF_8));
-            return null;
-        }).onSuccess(s -> LOG.info("Server send response"))
-                .onFailure(f -> LOG.error("Error reading from the Channel"))
-                .andFinally(() -> ReferenceCountUtil.release(msg));
+        } finally {
+            ReferenceCountUtil.release(msg);
+        }
     }
 
     @Override
