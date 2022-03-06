@@ -43,9 +43,9 @@ public class ServerImpl implements Server {
         ChannelFuture channelFuture = serverBootstrap.bind().sync();
         channelFuture.addListener((ChannelFutureListener) future -> {
             if (future.isSuccess()) {
-                LOG.info("Closing server without errors");
+                LOG.info("Server starting without errors");
             } else {
-                LOG.error("Closing server with errors");
+                LOG.error("Server can not start, errors in server");
             }
         });
 

@@ -3,6 +3,7 @@ package com.gawds.db.handler;
 import com.gawds.utils.Network;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
@@ -20,6 +21,19 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
 
     private static final Logger LOG = LoggerFactory.getLogger(EchoServerHandler.class);
 
+    private final ChannelFutureListener trafficResponse = new ChannelFutureListener() {
+        @Override
+        public void operationComplete(ChannelFuture future) throws Exception {
+            if (future.isSuccess()) {
+                LOG.info("Response send Ok");
+            } else {
+                LOG.error("Error sending the response", future.cause());
+                future.channel()
+                        .close();
+            }
+        }
+    };
+
     @Override
     public void channelActive(final ChannelHandlerContext ctx) throws Exception {
         final SocketAddress socketAddress = ctx.channel().remoteAddress();
@@ -32,8 +46,9 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
         try {
             LOG.info("Server received {}", buf.toString(CharsetUtil.UTF_8));
 
-            // Writes the received msg
-            ctx.write(Unpooled.copiedBuffer("Ok", CharsetUtil.UTF_8));
+            // Send the answer to Client
+            ctx.write(Unpooled.copiedBuffer("Ok", CharsetUtil.UTF_8))
+                    .addListener(trafficResponse);
         } finally {
             ReferenceCountUtil.release(msg);
         }
@@ -42,8 +57,9 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) {
         // Flushes pending msg and closes the channel
-        ctx.writeAndFlush(Unpooled.EMPTY_BUFFER)
-                .addListener(ChannelFutureListener.CLOSE);
+//        ctx.writeAndFlush(Unpooled.EMPTY_BUFFER)
+//                .addListener(ChannelFutureListener.CLOSE);
+        ctx.flush();
     }
 
     @Override
