@@ -1,9 +1,7 @@
 package com.gawds.db;
 
-import com.gawds.db.config.ConfigApp;
-import com.gawds.db.config.ServerConfig;
 import com.gawds.db.driver.Driver;
-import com.gawds.db.guice.BasicModule;
+import com.gawds.db.guice.ServerModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import org.slf4j.Logger;
@@ -14,10 +12,7 @@ public class MainApp {
     private static final Logger LOG = LoggerFactory.getLogger(MainApp.class);
 
     public static void main(String[] args) {
-        ServerConfig serverConfig = new ConfigApp();
-        LOG.info("Test: {}", serverConfig.getPort());
-
-        Injector injector = Guice.createInjector(new BasicModule());
+        Injector injector = Guice.createInjector(new ServerModule());
         Driver driver = injector.getInstance(Driver.class);
         driver.serverStart()
                 .onSuccess(t -> LOG.info("Finishing App"))

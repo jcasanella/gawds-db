@@ -18,6 +18,12 @@ configure<JavaApplication> {
     mainClass.set("com.gawds.db.MainApp")
 }
 
+tasks.compileJava {
+    options.isIncremental = true
+    options.isFork = true
+    options.isFailOnError = false
+}
+
 tasks.named<Test>("test") {
     useJUnitPlatform()
 }
@@ -30,7 +36,7 @@ dependencies {
 
     implementation("com.typesafe", "config","1.4.2")
     implementation("io.netty", "netty-all", "4.1.69.Final")
-    implementation("com.google.inject", "guice", "5.0.1")
+    implementation("com.google.inject", "guice", "5.1.0")
     implementation("io.vavr", "vavr","0.10.4")
 
     val junitVersion = "5.8.1"
