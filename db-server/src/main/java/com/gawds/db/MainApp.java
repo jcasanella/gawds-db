@@ -1,5 +1,7 @@
 package com.gawds.db;
 
+import com.gawds.db.config.ConfigApp;
+import com.gawds.db.config.ServerConfig;
 import com.gawds.db.driver.Driver;
 import com.gawds.db.guice.BasicModule;
 import com.google.inject.Guice;
@@ -12,10 +14,13 @@ public class MainApp {
     private static final Logger LOG = LoggerFactory.getLogger(MainApp.class);
 
     public static void main(String[] args) {
-            Injector injector = Guice.createInjector(new BasicModule());
-            Driver driver = injector.getInstance(Driver.class);
-            driver.serverStart()
-                    .onSuccess(t -> LOG.info("Finishing App"))
-                    .onFailure(ex -> LOG.error(ex.getMessage(), ex));
+        ServerConfig serverConfig = new ConfigApp();
+        LOG.info("Test: {}", serverConfig.getPort());
+
+        Injector injector = Guice.createInjector(new BasicModule());
+        Driver driver = injector.getInstance(Driver.class);
+        driver.serverStart()
+                .onSuccess(t -> LOG.info("Finishing App"))
+                .onFailure(ex -> LOG.error(ex.getMessage(), ex));
     }
 }
