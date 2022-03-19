@@ -3,6 +3,12 @@ plugins {
     application
 }
 
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(11))
+    }
+}
+
 repositories {
     mavenCentral()
 }
@@ -22,10 +28,7 @@ tasks.withType<JavaExec> {
 }
 
 dependencies {
-    val log4jVersion = "2.17.1"
-    implementation("org.apache.logging.log4j", "log4j-api", log4jVersion)
-    implementation("org.apache.logging.log4j", "log4j-core", log4jVersion)
-    implementation("org.apache.logging.log4j", "log4j-slf4j-impl", log4jVersion)
+    implementation(libs.bundles.log4j)
 
     implementation("io.netty", "netty-all", "4.1.69.Final")
 

@@ -28,11 +28,11 @@ tasks.named<Test>("test") {
     useJUnitPlatform()
 }
 
+val versionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
+println("${versionCatalog.libraryAliases}")
+
 dependencies {
-    val log4jVersion = "2.17.1"
-    implementation("org.apache.logging.log4j", "log4j-api", log4jVersion)
-    implementation("org.apache.logging.log4j", "log4j-core", log4jVersion)
-    implementation("org.apache.logging.log4j", "log4j-slf4j-impl", log4jVersion)
+    implementation(libs.bundles.log4j)
 
     implementation("com.typesafe", "config","1.4.2")
     implementation("io.netty", "netty-all", "4.1.69.Final")
