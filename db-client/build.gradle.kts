@@ -29,14 +29,13 @@ tasks.withType<JavaExec> {
 
 dependencies {
     implementation(libs.bundles.log4j)
+    implementation(libs.netty)
+    implementation(libs.guice)
 
-    implementation("io.netty", "netty-all", "4.1.69.Final")
-
-    implementation("com.google.inject", "guice", "5.0.1")
-
-    val junitVersion = "5.8.1"
-    testImplementation("org.junit.jupiter", "junit-jupiter-api", junitVersion)
-    testRuntimeOnly("org.junit.jupiter", "junit-jupiter-engine", junitVersion)
+    // Test libs
+    testImplementation(libs.junit.api)
+    testRuntimeOnly(libs.junit.engine)
+    testImplementation(libs.assertj)
 
     implementation(project(":db-common"))
 }

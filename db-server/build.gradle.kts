@@ -28,21 +28,29 @@ tasks.named<Test>("test") {
     useJUnitPlatform()
 }
 
-val versionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
-println("${versionCatalog.libraryAliases}")
+// This task will print the catalog alias
+abstract class PrintCatalogAlias @Inject constructor(private val r : Project) :  DefaultTask() {
+    @TaskAction
+    fun catalogAlias() {
+        val versionCatalog = r.rootProject.project.extensions.getByType<VersionCatalogsExtension>().named("libs")
+        println("${versionCatalog.libraryAliases}")
+    }
+}
+
+tasks.register<PrintCatalogAlias>("catalog")
 
 dependencies {
     implementation(libs.bundles.log4j)
+    implementation(libs.netty)
+    implementation(libs.guice)
 
     implementation("com.typesafe", "config","1.4.2")
-    implementation("io.netty", "netty-all", "4.1.69.Final")
-    implementation("com.google.inject", "guice", "5.1.0")
     implementation("io.vavr", "vavr","0.10.4")
 
-    val junitVersion = "5.8.1"
-    testImplementation("org.junit.jupiter", "junit-jupiter-api", junitVersion)
-    testRuntimeOnly("org.junit.jupiter", "junit-jupiter-engine", junitVersion)
-    testImplementation("org.assertj", "assertj-core", "3.22.0")
+    // Test libs
+    testImplementation(libs.junit.api)
+    testRuntimeOnly(libs.junit.engine)
+    testImplementation(libs.assertj)
 
     implementation(project(":db-common"))
 }
