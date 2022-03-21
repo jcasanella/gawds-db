@@ -1,18 +1,22 @@
 package com.gawds.db.config;
 
 import com.typesafe.config.Config;
+import com.typesafe.config.ConfigException;
 import com.typesafe.config.ConfigFactory;
-import io.vavr.control.Option;
 
 public class ConfigApp implements ServerConfig {
-    Config config;
+    private final Config config;
 
     public ConfigApp() {
         this.config = ConfigFactory.defaultApplication();
     }
 
+    public ConfigApp(String propertiesFile) {
+        this.config = ConfigFactory.load(propertiesFile);
+    }
+
     @Override
-    public Option<Integer> getPort() {
-        return Option.of(config.getInt("server.port"));
+    public int getPort() throws ConfigException {
+        return config.getInt("server.port");
     }
 }

@@ -47,10 +47,13 @@ dependencies {
     implementation("com.typesafe", "config","1.4.2")
     implementation("io.vavr", "vavr","0.10.4")
 
+    implementation("org.apache.curator", "apache-curator", "5.2.1")
+
     // Test libs
     testImplementation(libs.junit.api)
     testRuntimeOnly(libs.junit.engine)
     testImplementation(libs.assertj)
+    testImplementation(libs.junit.params)
 
     implementation(project(":db-common"))
 }

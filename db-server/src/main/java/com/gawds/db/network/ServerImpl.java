@@ -18,9 +18,9 @@ import java.net.InetSocketAddress;
 
 public class ServerImpl implements Server {
 
-    private EventLoopGroup bossGroup;
-    private EventLoopGroup workerGroup;
-    private ServerConfig serverConfig;
+    private final EventLoopGroup bossGroup;
+    private final EventLoopGroup workerGroup;
+    private final ServerConfig serverConfig;
     private static final int MAX_NUMBER_QUEUED = 128;
 
     private static final Logger LOG = LoggerFactory.getLogger(ServerImpl.class);
@@ -34,8 +34,7 @@ public class ServerImpl implements Server {
 
     @Override
     public void start() throws InterruptedException {
-        var port = this.serverConfig.getPort()
-                .getOrElseThrow(() -> new RuntimeException("Server port not defined"));
+        var port = this.serverConfig.getPort();
         var serverBootstrap = new ServerBootstrap();
 
         serverBootstrap.group(this.bossGroup, this.workerGroup)

@@ -13,7 +13,8 @@ dependencyResolutionManagement {
             version("junitVersion", "5.8.1")
             library("junit-api", "org.junit.jupiter", "junit-jupiter-api").versionRef("junitVersion")
             library("junit-engine", "org.junit.jupiter", "junit-jupiter-engine").versionRef("junitVersion")
-            bundle("junit", listOf("junit-api", "junit-engine"))
+            library("junit-params", "org.junit.jupiter", "junit-jupiter-params").versionRef("junitVersion")
+
 
             library("assertj", "org.assertj", "assertj-core").version("3.22.0")
             library("netty", "io.netty", "netty-all").version("4.1.69.Final")
